@@ -461,7 +461,7 @@ const proofStats = [
   { label: "Ad Budgets Managed", value: 50, suffix: "Cr+" },
   { label: "Creators Scaled", value: 650, suffix: "+" },
   { label: "No Revenue Share", value: 0, suffix: "%" },
-  { label: "Core Channels", value: 2, suffix: " (Meta+Google)" },
+  { label: "Core Channels", value: 2, suffix: "(Meta + Google)", splitSuffix: true },
 ];
 
 const backers = ["Y Combinator", "Lightspeed", "Chiratae", "Kunal Shah"];
@@ -790,7 +790,7 @@ function BrandLogo({ className = "h-10 w-auto object-contain align-middle" }) {
   return <img src="/exly-proposal-logo.svg" alt="Exly logo" className={className} loading="eager" decoding="async" />;
 }
 
-function AnimatedCounter({ value, suffix = "", duration = 1.8 }) {
+function AnimatedCounter({ value, suffix = "", duration = 1.8, splitSuffix = false, suffixClassName = "" }) {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
   const [display, setDisplay] = useState(0);
@@ -809,10 +809,17 @@ function AnimatedCounter({ value, suffix = "", duration = 1.8 }) {
     };
   }, [count, duration, rounded, value]);
 
+  const suffixText = suffix ? String(suffix).trim() : "";
   return (
-    <span className="tabular-nums">
-      {display.toLocaleString()}
-      {suffix}
+    <span className="tabular-nums inline-flex flex-wrap items-baseline gap-x-1">
+      <span>{display.toLocaleString()}</span>
+      {suffixText ? (
+        splitSuffix ? (
+          <span className={`basis-full pt-1 text-sm font-semibold leading-snug sm:text-base ${suffixClassName}`}>{suffixText}</span>
+        ) : (
+          <span>{suffixText}</span>
+        )
+      ) : null}
     </span>
   );
 }
@@ -2671,8 +2678,17 @@ function renderSectionContent(section, motionProfile = null) {
         <motion.div variants={revealItem} className="grid gap-4 md:grid-cols-4">
           {proofStats.map((counter) => (
             <div key={counter.label} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-              <p className="text-3xl font-bold text-[#4F46E5]">
-                <AnimatedCounter value={counter.value} suffix={counter.suffix} />
+              <p
+                className={`font-bold text-[#4F46E5] ${
+                  counter.splitSuffix ? "text-[2rem] leading-[1.06] sm:text-3xl" : "text-3xl leading-none"
+                }`}
+              >
+                <AnimatedCounter
+                  value={counter.value}
+                  suffix={counter.suffix}
+                  splitSuffix={Boolean(counter.splitSuffix)}
+                  suffixClassName="text-[#4F46E5]/90"
+                />
               </p>
               <p className="mt-2 text-xs uppercase tracking-wider text-[#6B7280]">{counter.label}</p>
             </div>
