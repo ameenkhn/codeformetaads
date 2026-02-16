@@ -1954,6 +1954,57 @@ function SectionLearnMoreBrace() {
   );
 }
 
+function MobileClickMeLabel() {
+  const reducedMotion = useReducedMotion();
+  return (
+    <motion.svg viewBox="0 0 122 28" className="h-6 w-[112px]" aria-hidden="true">
+      <motion.rect
+        x="1"
+        y="2"
+        width="120"
+        height="24"
+        rx="12"
+        fill="#EEF2FF"
+        stroke="#C7D2FE"
+        animate={reducedMotion ? undefined : { scale: [1, 1.01, 1] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "61px 14px" }}
+      />
+      <motion.path
+        d="M24 14 H12"
+        stroke="#4F46E5"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        animate={reducedMotion ? undefined : { x: [0, -1.8, 0] }}
+        transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.path
+        d="M16 10 L12 14 L16 18"
+        fill="none"
+        stroke="#4F46E5"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        animate={reducedMotion ? undefined : { x: [0, -1.8, 0] }}
+        transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.text
+        x="32"
+        y="18"
+        fill="#4338CA"
+        fontSize="10.2"
+        fontWeight="700"
+        fontFamily="Inter, sans-serif"
+        letterSpacing="0.03em"
+        animate={reducedMotion ? undefined : { opacity: [0.72, 1, 0.72] }}
+        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        Click me
+      </motion.text>
+    </motion.svg>
+  );
+}
+
 function KineticCostChart({ liteMotion = false, motionProfile = motionPresets.standard }) {
   const reducedMotion = useReducedMotion();
   const animateChart = !liteMotion && !reducedMotion;
@@ -3063,7 +3114,7 @@ function ActiveSectionPanel({ section, onClose, isMobile, liteMotion = false, mo
 export default function ExlyDossier() {
   const reducedMotion = useReducedMotion();
   const [activeId, setActiveId] = useState(null);
-  const [mobileListOpen, setMobileListOpen] = useState(true);
+  const [mobileListOpen, setMobileListOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarIntroDone, setSidebarIntroDone] = useState(false);
   const [liteMotion, setLiteMotion] = useState(false);
@@ -3103,7 +3154,7 @@ export default function ExlyDossier() {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
       if (!mobile) setMobileListOpen(false);
-      if (mobile && activeId === null) setMobileListOpen(true);
+      if (mobile && activeId !== null) setMobileListOpen(false);
     };
     check();
     window.addEventListener("resize", check);
@@ -3152,7 +3203,7 @@ export default function ExlyDossier() {
     fireMicroHaptic([5, 20, 6]);
     playMotionAudio("close");
     setActiveId(null);
-    if (isMobile) setMobileListOpen(true);
+    if (isMobile) setMobileListOpen(false);
   }, [isMobile, playMotionAudio]);
 
   const openDiscoveryCTA = useCallback(() => {
@@ -3227,13 +3278,43 @@ export default function ExlyDossier() {
                     Back
                   </button>
                 ) : (
-                  <button
+                  <motion.button
                     onClick={() => setMobileListOpen((prev) => !prev)}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-[#111827]"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[#111827]"
+                    aria-label="Click me"
+                    whileTap={{ scale: 0.98, y: 0.5 }}
+                    transition={{ type: "spring", stiffness: 420, damping: 28 }}
                   >
-                    <Menu className="h-4 w-4" />
-                    Sections
-                  </button>
+                    <motion.span
+                      className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white/90 shadow-[0_1px_2px_rgba(15,23,42,0.08)]"
+                      animate={
+                        reducedMotion
+                          ? undefined
+                          : {
+                              scale: [1, 1.03, 1],
+                              boxShadow: [
+                                "0 1px 2px rgba(15,23,42,0.08)",
+                                "0 4px 12px rgba(79,70,229,0.16)",
+                                "0 1px 2px rgba(15,23,42,0.08)",
+                              ],
+                            }
+                      }
+                      transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <motion.span
+                        className="pointer-events-none absolute inset-[-3px] rounded-full border border-indigo-300/40"
+                        animate={reducedMotion ? undefined : { opacity: [0.22, 0.6, 0.22], scale: [1, 1.06, 1] }}
+                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                      <motion.span
+                        animate={reducedMotion ? undefined : { rotate: [0, -2.5, 0, 2.5, 0] }}
+                        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <Menu className="h-4 w-4" />
+                      </motion.span>
+                    </motion.span>
+                    <MobileClickMeLabel />
+                  </motion.button>
                 )}
               </div>
               <div className="relative min-h-0 flex-1">
