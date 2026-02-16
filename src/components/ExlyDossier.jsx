@@ -3206,6 +3206,13 @@ export default function ExlyDossier() {
     if (isMobile) setMobileListOpen(false);
   }, [isMobile, playMotionAudio]);
 
+  const goBackToMobileList = useCallback(() => {
+    fireMicroHaptic([5]);
+    playMotionAudio("close");
+    setActiveId(null);
+    setMobileListOpen(true);
+  }, [playMotionAudio]);
+
   const openDiscoveryCTA = useCallback(() => {
     fireMicroHaptic([8, 20, 8]);
     playMotionAudio("select");
@@ -3273,7 +3280,10 @@ export default function ExlyDossier() {
                 style={{ height: "calc(56px + env(safe-area-inset-top))", paddingTop: "env(safe-area-inset-top)" }}
               >
                 {activeSection ? (
-                  <button onClick={closeSection} className="inline-flex items-center gap-2 text-sm font-medium text-[#111827]">
+                  <button
+                    onClick={isMobile ? goBackToMobileList : closeSection}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-[#111827]"
+                  >
                     <ArrowLeft className="h-4 w-4" />
                     Back
                   </button>
