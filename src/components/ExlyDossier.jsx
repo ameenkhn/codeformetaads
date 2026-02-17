@@ -2483,7 +2483,6 @@ function DefaultCover({ liteMotion = false, compact = false }) {
       <div className="mt-8">
         <SectionLiveCartoonPack sectionKey="cover" liteMotion={liteMotion} compact={compact} />
       </div>
-      <SectionClientQueryGrid sectionKey="cover" liteMotion={liteMotion} compact={compact} />
       <motion.div variants={revealItem} className="mt-8 grid gap-3 md:grid-cols-2">
         {heroServiceCards.slice(0, 4).map((service) => (
           <div key={service.title} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
