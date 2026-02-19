@@ -91,6 +91,47 @@ const heroServiceCards = [
   },
 ];
 
+const growthThesisServiceBlocks = [
+  {
+    icon: Megaphone,
+    title: "Performance Engine",
+    items: ["Meta + Google ads", "Creative testing", "Weekly optimization"],
+  },
+  {
+    icon: Target,
+    title: "Funnel System",
+    items: ["Landing pages", "Offer positioning", "Conversion flow"],
+  },
+  {
+    icon: BarChart3,
+    title: "Backend & Tracking",
+    items: ["CRM", "Payments", "Attribution dashboard", "Revenue intelligence"],
+  },
+  {
+    icon: Wrench,
+    title: "Lifecycle & Automation",
+    items: ["Email + WhatsApp automation", "Lead nurturing workflows", "Retention loops"],
+  },
+];
+
+const landingScreenshots = [
+  {
+    src: "/screenshots/growth-command-center.svg",
+    title: "Growth Command Center",
+    note: "Ads, funnel, CRM, and revenue visibility in one workspace.",
+  },
+  {
+    src: "/screenshots/funnel-analytics-suite.svg",
+    title: "Funnel + Attribution Suite",
+    note: "Landing page and conversion tracking from click to checkout.",
+  },
+  {
+    src: "/screenshots/revenue-ops-workspace.svg",
+    title: "Revenue Ops Workspace",
+    note: "Automations, retention loops, and fixed-fee economics dashboard.",
+  },
+];
+
 const painPointCartoons = [
   {
     icon: "puzzle",
@@ -935,6 +976,297 @@ function StickyDiscoveryFooter({ onSchedule, liteMotion = false, isMobile = fals
         </MagneticButton>
       </motion.div>
     </motion.div>
+  );
+}
+
+function MobileGrowthCallBar({ onBook }) {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-50 md:hidden">
+      <div className="w-full bg-[#111827] px-4 pt-3 pb-[max(0.9rem,env(safe-area-inset-bottom))] shadow-[0_-10px_24px_-14px_rgba(17,24,39,0.65)]">
+        <div className="mx-auto flex max-w-md flex-col items-center">
+          <button
+            onClick={onBook}
+            className="inline-flex w-full items-center justify-center rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-[#111827]"
+          >
+            Book Free Growth Call
+          </button>
+          <p className="mt-1.5 text-center text-[11px] font-semibold text-white/85">0% Revenue Share</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LandingScreenshotGrid({ items = landingScreenshots, liteMotion = false, mode = "three" }) {
+  const cols = mode === "two" ? "md:grid-cols-2" : "md:grid-cols-3";
+  return (
+    <div className={`grid grid-cols-1 gap-4 ${cols}`}>
+      {items.map((item, index) => (
+        <motion.div
+          key={item.src}
+          className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+          whileHover={liteMotion ? undefined : { y: -2, boxShadow: "0 16px 30px -22px rgba(15,23,42,0.45)" }}
+          transition={{ type: "spring", stiffness: 220, damping: 24, delay: index * 0.04 }}
+        >
+          <div className="relative aspect-[16/10] overflow-hidden bg-slate-50">
+            <img
+              src={item.src}
+              alt={item.title}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div className="p-3">
+            <p className="text-sm font-semibold text-[#111827]">{item.title}</p>
+            <p className="mt-1 text-xs text-[#64748B]">{item.note}</p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+function AnimatedCheckIcon({ className = "h-6 w-6" }) {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <motion.svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="checkFillGradient" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#22C55E" />
+          <stop offset="100%" stopColor="#15803D" />
+        </linearGradient>
+      </defs>
+      <motion.circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="url(#checkFillGradient)"
+        animate={reducedMotion ? undefined : { scale: [1, 1.08, 1], opacity: [0.88, 1, 0.88] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.path
+        d="M7.4 12.3l3.1 3.1 6.1-7"
+        fill="none"
+        stroke="#FFFFFF"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={reducedMotion ? false : { pathLength: 0.08, opacity: 0.8 }}
+        animate={reducedMotion ? { pathLength: 1, opacity: 1 } : { pathLength: [0.08, 1, 1], opacity: [0.8, 1, 0.9] }}
+        transition={{ duration: 1.25, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="none"
+        stroke="#22C55E"
+        strokeWidth="1.6"
+        animate={reducedMotion ? undefined : { scale: [1, 1.28], opacity: [0.65, 0] }}
+        transition={{ duration: 1.35, repeat: Infinity, ease: "easeOut" }}
+      />
+      <motion.circle
+        cx="12"
+        cy="12"
+        r="6.7"
+        fill="none"
+        stroke="#86EFAC"
+        strokeWidth="1"
+        strokeDasharray="4 3"
+        animate={reducedMotion ? undefined : { rotate: [0, 360] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "50% 50%" }}
+      />
+      <motion.circle
+        cx="18"
+        cy="6.2"
+        r="1.1"
+        fill="#D1FAE5"
+        animate={reducedMotion ? undefined : { opacity: [0.2, 1, 0.2], scale: [0.85, 1.25, 0.85] }}
+        transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </motion.svg>
+  );
+}
+
+function AnimatedCrossIcon({ className = "h-6 w-6" }) {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <motion.svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="crossFillGradient" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#EF4444" />
+          <stop offset="100%" stopColor="#B91C1C" />
+        </linearGradient>
+      </defs>
+      <motion.circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="url(#crossFillGradient)"
+        animate={reducedMotion ? undefined : { scale: [1, 1.08, 1], opacity: [0.88, 1, 0.88] }}
+        transition={{ duration: 1.55, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.g
+        animate={reducedMotion ? undefined : { rotate: [0, -10, 10, -6, 6, 0] }}
+        transition={{ duration: 1.45, repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformOrigin: "50% 50%" }}
+      >
+        <path
+          d="M8 8l8 8M16 8l-8 8"
+          fill="none"
+          stroke="#FFFFFF"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </motion.g>
+      <motion.circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="none"
+        stroke="#F87171"
+        strokeWidth="1.6"
+        animate={reducedMotion ? undefined : { scale: [1, 1.26], opacity: [0.65, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+      />
+      <motion.circle
+        cx="12"
+        cy="12"
+        r="6.6"
+        fill="none"
+        stroke="#FCA5A5"
+        strokeWidth="1"
+        strokeDasharray="3.5 3"
+        animate={reducedMotion ? undefined : { rotate: [360, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: "50% 50%" }}
+      />
+      <motion.circle
+        cx="6.5"
+        cy="18"
+        r="1.1"
+        fill="#FEE2E2"
+        animate={reducedMotion ? undefined : { opacity: [0.2, 1, 0.2], scale: [0.85, 1.25, 0.85] }}
+        transition={{ duration: 1.05, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </motion.svg>
+  );
+}
+
+function LegacyRevenueShareChart({ liteMotion = false, className = "" }) {
+  const reducedMotion = useReducedMotion();
+  const animateChart = !liteMotion && !reducedMotion;
+
+  return (
+    <svg viewBox="0 0 320 96" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="legacyChartArea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(239,68,68,0.28)" />
+          <stop offset="100%" stopColor="rgba(239,68,68,0.03)" />
+        </linearGradient>
+      </defs>
+      <rect x="1" y="1" width="318" height="94" rx="12" fill="rgba(255,255,255,0.72)" stroke="rgba(244,63,94,0.18)" />
+      {[22, 40, 58, 76].map((y) => (
+        <line key={y} x1="16" y1={y} x2="304" y2={y} stroke="rgba(225,29,72,0.12)" strokeDasharray="3 4" />
+      ))}
+      <path
+        d="M18 74 C55 72 84 66 112 59 C145 50 173 43 208 33 C241 24 270 18 302 12 L302 82 L18 82 Z"
+        fill="url(#legacyChartArea)"
+      />
+      <motion.path
+        d="M18 74 C55 72 84 66 112 59 C145 50 173 43 208 33 C241 24 270 18 302 12"
+        fill="none"
+        stroke="#E11D48"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeDasharray={animateChart ? "0 1" : undefined}
+        initial={animateChart ? { pathLength: 0.15, opacity: 0.7 } : false}
+        animate={animateChart ? { pathLength: [0.15, 1, 1], opacity: [0.7, 1, 0.92] } : { pathLength: 1, opacity: 1 }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.circle
+        cx="302"
+        cy="12"
+        r="4.8"
+        fill="#E11D48"
+        animate={animateChart ? { scale: [1, 1.28, 1], opacity: [0.75, 1, 0.75] } : undefined}
+        transition={{ duration: 1.15, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.circle
+        cx="302"
+        cy="12"
+        r="8"
+        fill="none"
+        stroke="rgba(225,29,72,0.48)"
+        strokeWidth="1.5"
+        animate={animateChart ? { scale: [1, 1.55], opacity: [0.6, 0] } : undefined}
+        transition={{ duration: 1.2, repeat: Infinity, ease: "easeOut" }}
+      />
+    </svg>
+  );
+}
+
+function ExlyFixedFeeChart({ liteMotion = false, className = "" }) {
+  const reducedMotion = useReducedMotion();
+  const animateChart = !liteMotion && !reducedMotion;
+
+  return (
+    <svg viewBox="0 0 320 96" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="exlyChartArea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(79,70,229,0.2)" />
+          <stop offset="100%" stopColor="rgba(79,70,229,0.03)" />
+        </linearGradient>
+      </defs>
+      <rect x="1" y="1" width="318" height="94" rx="12" fill="rgba(255,255,255,0.72)" stroke="rgba(99,102,241,0.2)" />
+      {[22, 40, 58, 76].map((y) => (
+        <line key={y} x1="16" y1={y} x2="304" y2={y} stroke="rgba(99,102,241,0.13)" strokeDasharray="3 4" />
+      ))}
+      <path d="M18 44 C88 44 124 44 192 44 C230 44 266 44 302 44 L302 82 L18 82 Z" fill="url(#exlyChartArea)" />
+      <motion.path
+        d="M18 44 C88 44 124 44 192 44 C230 44 266 44 302 44"
+        fill="none"
+        stroke="#4F46E5"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={animateChart ? { pathLength: 0.2, opacity: 0.7 } : false}
+        animate={animateChart ? { pathLength: [0.2, 1, 1], opacity: [0.7, 1, 0.9] } : { pathLength: 1, opacity: 1 }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.path
+        d="M18 66 L302 66"
+        fill="none"
+        stroke="#22C55E"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeDasharray="5 4"
+        animate={animateChart ? { strokeDashoffset: [0, -18] } : undefined}
+        transition={{ duration: 1.4, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.circle
+        cx="42"
+        cy="44"
+        r="4.2"
+        fill="#4F46E5"
+        animate={animateChart ? { cx: [42, 302], opacity: [0.35, 1, 0.35] } : undefined}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.circle
+        cx="278"
+        cy="66"
+        r="4.1"
+        fill="#16A34A"
+        animate={animateChart ? { scale: [1, 1.28, 1], opacity: [0.75, 1, 0.75] } : undefined}
+        transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </svg>
   );
 }
 
@@ -1874,13 +2206,25 @@ function HaloChipRow({ compact = false, liteMotion = false }) {
 
 function SectionLearnMoreBrace() {
   const reducedMotion = useReducedMotion();
+  const bracePath = `M24 24
+    C86 24, 86 210, 58 338
+    C46 392, 46 438, 58 492
+    C86 620, 86 806, 24 806`;
+  const travelCx = [28, 44, 58, 50, 46, 50, 58, 70, 78, 68, 54, 38, 28, 36, 52, 68, 74, 60, 42, 30, 28];
+  const travelCy = [34, 130, 240, 338, 392, 430, 492, 596, 700, 778, 806, 806, 806, 770, 700, 596, 492, 430, 338, 180, 34];
+  const travelDots = [
+    { r: 5, opacity: 1, delay: 0 },
+    { r: 4.2, opacity: 0.72, delay: -2.2 },
+    { r: 3.5, opacity: 0.5, delay: -4.4 },
+  ];
+
   return (
     <motion.div
       className="pointer-events-none absolute left-[324px] top-[126px] z-20 hidden md:block"
-      animate={reducedMotion ? undefined : { y: [0, -1.5, 0] }}
-      transition={{ duration: 5.4, repeat: Infinity, ease: "easeInOut" }}
+      animate={reducedMotion ? undefined : { y: [0, -0.8, 0] }}
+      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
     >
-      <svg viewBox="0 0 200 760" className="h-[652px] w-[166px] overflow-visible">
+      <svg viewBox="0 0 200 840" className="h-[724px] w-[166px] overflow-visible">
         <defs>
           <linearGradient id="brace-accent-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#6366F1" />
@@ -1889,62 +2233,76 @@ function SectionLearnMoreBrace() {
           </linearGradient>
         </defs>
         <motion.path
-          d="M22 20
-             C66 20, 68 62, 48 108
-             C32 148, 34 220, 52 274
-             C66 316, 82 356, 54 396
-             C36 422, 34 498, 56 560
-             C74 612, 74 662, 36 704"
+          d={bracePath}
           fill="none"
-          stroke="#C7D2FE"
-          strokeWidth="6"
+          stroke="#C7D2FECC"
+          strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0.5 }}
-          animate={{ pathLength: 1, opacity: 0.9 }}
+          initial={{ pathLength: 0, opacity: 0.45 }}
+          animate={{ pathLength: 1, opacity: 0.82 }}
           transition={{ duration: 1.05, ease: "easeOut" }}
         />
         <motion.path
-          d="M22 20
-             C66 20, 68 62, 48 108
-             C32 148, 34 220, 52 274
-             C66 316, 82 356, 54 396
-             C36 422, 34 498, 56 560
-             C74 612, 74 662, 36 704"
+          d={bracePath}
           fill="none"
           stroke="url(#brace-accent-gradient)"
-          strokeWidth="3.6"
+          strokeWidth="2.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeDasharray="18 260"
-          animate={reducedMotion ? undefined : { strokeDashoffset: [0, -278] }}
-          transition={{ duration: 5.2, repeat: Infinity, ease: "linear" }}
+          strokeDasharray="34 286"
+          animate={reducedMotion ? undefined : { strokeDashoffset: [0, -320] }}
+          transition={{ duration: 8.5, repeat: Infinity, ease: "linear" }}
         />
-        <motion.circle
-          r="5.1"
-          fill="#4F46E5"
-          stroke="#FFFFFF"
-          strokeWidth="1.5"
-          animate={
-            reducedMotion
-              ? { cx: 52, cy: 274 }
-              : {
-                  cx: [48, 40, 52, 46, 56, 46, 52, 40, 48],
-                  cy: [108, 190, 274, 356, 560, 520, 356, 190, 108],
-                }
-          }
-          transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut" }}
-        />
+        {travelDots.map((dot, index) => (
+          <motion.circle
+            key={`brace-dot-${index}`}
+            r={dot.r}
+            fill="#4F46E5"
+            stroke="#FFFFFF"
+            strokeWidth={index === 0 ? 1.6 : 1.1}
+            animate={
+              reducedMotion
+                ? { cx: 58, cy: 430 }
+                : {
+                    cx: travelCx,
+                    cy: travelCy,
+                    opacity: [dot.opacity * 0.7, dot.opacity, dot.opacity * 0.7],
+                  }
+            }
+            transition={{ duration: 7.6, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
+          />
+        ))}
+        {travelDots.slice(0, 2).map((dot, index) => (
+          <motion.circle
+            key={`brace-dot-ring-${index}`}
+            r={dot.r + 3}
+            fill="none"
+            stroke="#6366F1"
+            strokeWidth="1.2"
+            animate={
+              reducedMotion
+                ? undefined
+                : {
+                    cx: travelCx,
+                    cy: travelCy,
+                    scale: [1, 1.22, 1],
+                    opacity: [0.24, 0, 0.24],
+                  }
+            }
+            transition={{ duration: 7.6, repeat: Infinity, ease: "easeInOut", delay: dot.delay }}
+          />
+        ))}
 
         <motion.path
           d="M66 358 C92 356, 106 352, 120 346"
           fill="none"
           stroke="#6366F1"
-          strokeWidth="2.2"
+          strokeWidth="2"
           strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0.4 }}
-          animate={{ pathLength: 1, opacity: 0.9 }}
-          transition={{ delay: 0.42, duration: 0.45, ease: "easeOut" }}
+          initial={{ pathLength: 0, opacity: 0.35 }}
+          animate={{ pathLength: 1, opacity: 0.85 }}
+          transition={{ delay: 0.42, duration: 0.5, ease: "easeOut" }}
         />
 
         <motion.g initial={{ opacity: 0, x: -4 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.48, duration: 0.32 }}>
@@ -2461,12 +2819,129 @@ function DefaultCover({ liteMotion = false, compact = false }) {
       <motion.p variants={revealItem} className="text-xs font-semibold uppercase tracking-[0.2em] text-[#4F46E5]">
         Exly Overview
       </motion.p>
-      <motion.h1 variants={revealItem} className="mt-3 text-[1.9rem] font-bold leading-tight text-[#111827] sm:text-4xl md:mt-4 md:text-5xl">
-        {proposalTitle}
-      </motion.h1>
+      <div className="relative">
+        <motion.div
+          variants={revealItem}
+          animate={liteMotion ? undefined : { y: [0, -4, 0] }}
+          transition={liteMotion ? undefined : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none relative ml-auto mb-2 w-fit rounded-full bg-gradient-to-r from-[#4F46E5] to-[#4338CA] px-4 py-2 text-center text-[10px] font-bold leading-tight text-white shadow-[0_10px_18px_-10px_rgba(79,70,229,0.65)] sm:absolute sm:-right-3 sm:-top-6 sm:mb-0 sm:text-[11px]"
+        >
+          <span className="block">0% REVENUE SHARE</span>
+          <span className="block">YOU KEEP 100%</span>
+        </motion.div>
+        <motion.h1 variants={revealItem} className="mt-3 text-[1.9rem] font-bold leading-tight text-[#111827] sm:text-4xl md:mt-4 md:text-5xl">
+          {proposalTitle}
+        </motion.h1>
+      </div>
       <motion.p variants={revealItem} className="mt-2 text-base font-medium text-[#111827] sm:text-lg">
         Zero Revenue Share. One Fixed Fee.
       </motion.p>
+      <motion.div variants={revealItem} className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <motion.div
+          className="relative overflow-hidden rounded-2xl border border-rose-200/70 bg-gradient-to-br from-white via-white to-rose-50/60 p-4 shadow-[0_16px_32px_-22px_rgba(239,68,68,0.38)]"
+          whileHover={{ y: -2, scale: 1.005, boxShadow: "0 18px 34px -20px rgba(239,68,68,0.42)" }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        >
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-rose-400/80 via-rose-300/35 to-transparent" />
+          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-rose-200/35 blur-2xl" />
+          <div className="relative flex items-start justify-between gap-3">
+            <p className="text-sm font-semibold text-[#111827]">Traditional Agencies</p>
+            <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[10px] font-semibold text-rose-700">
+              <motion.span
+                className="inline-block"
+                animate={liteMotion ? undefined : { opacity: [0.75, 1, 0.75], y: [0, -0.5, 0] }}
+                transition={liteMotion ? undefined : { duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
+              >
+                High-Cost Model
+              </motion.span>
+            </span>
+          </div>
+          <ul className="relative mt-3 space-y-2 text-sm text-[#4B5563]">
+            <li className="flex items-center gap-2.5 rounded-xl border border-rose-100 bg-white/85 px-2.5 py-2 backdrop-blur-sm">
+              <AnimatedCrossIcon className="h-5 w-5" />
+              <span className="font-medium">20-30% revenue share</span>
+            </li>
+          </ul>
+          <div className="relative mt-3 rounded-xl border border-rose-100/90 bg-white/75 p-2 backdrop-blur-sm">
+            <LegacyRevenueShareChart liteMotion={liteMotion} className="h-20 w-full" />
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.11em] text-rose-700/90">
+              Fee burden rises with scale
+            </p>
+          </div>
+        </motion.div>
+        <motion.div
+          className="relative overflow-hidden rounded-2xl border border-indigo-200/70 bg-gradient-to-br from-white via-white to-indigo-50/65 p-4 shadow-[0_16px_32px_-22px_rgba(79,70,229,0.36)]"
+          whileHover={{ y: -2, scale: 1.005, boxShadow: "0 18px 34px -20px rgba(79,70,229,0.42)" }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+        >
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#4F46E5] via-[#6366F1]/45 to-transparent" />
+          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-indigo-200/35 blur-2xl" />
+          <div className="relative flex items-start justify-between gap-3">
+            <p className="text-sm font-semibold text-[#111827]">Exly</p>
+            <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-[10px] font-semibold text-[#4338CA]">
+              <motion.span
+                className="inline-block"
+                animate={liteMotion ? undefined : { opacity: [0.8, 1, 0.8], y: [0, -0.5, 0] }}
+                transition={liteMotion ? undefined : { duration: 1.9, repeat: Infinity, ease: "easeInOut" }}
+              >
+                Exly Advantage
+              </motion.span>
+            </span>
+          </div>
+          <ul className="relative mt-3 grid grid-cols-1 gap-3 text-sm text-[#4B5563] md:grid-cols-[minmax(0,1fr)_minmax(0,1.12fr)]">
+            <motion.li
+              className="group relative min-w-0 overflow-hidden rounded-2xl border border-indigo-200/85 bg-[linear-gradient(145deg,rgba(255,255,255,0.97),rgba(238,242,255,0.88))] px-3 py-3 shadow-[0_16px_30px_-24px_rgba(79,70,229,0.58)]"
+              whileHover={liteMotion ? undefined : { y: -2, borderColor: "rgba(99,102,241,0.58)" }}
+              transition={{ type: "spring", stiffness: 220, damping: 22 }}
+            >
+              <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(140px_90px_at_90%_0%,rgba(99,102,241,0.16),transparent_70%)]" />
+              <span className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-[#6366F1]/80 via-[#818CF8]/60 to-transparent" />
+              <motion.span
+                className="pointer-events-none absolute -left-10 top-0 h-full w-8 bg-white/70 blur-[2px]"
+                animate={liteMotion ? undefined : { x: ["0%", "620%"] }}
+                transition={{ duration: 2.8, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }}
+              />
+              <div className="relative flex items-center gap-3">
+                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 ring-1 ring-emerald-200/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+                  <AnimatedCheckIcon className="h-6 w-6" />
+                </span>
+                <div className="min-w-0 leading-none">
+                  <p className="text-[30px] font-black tracking-[-0.04em] text-[#1E293B] md:text-[32px] lg:text-[34px]">0%</p>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#475569]">Revenue Share</p>
+                </div>
+              </div>
+            </motion.li>
+            <motion.li
+              className="group relative min-w-0 overflow-hidden rounded-2xl border border-indigo-200/85 bg-[linear-gradient(145deg,rgba(255,255,255,0.97),rgba(236,253,245,0.86))] px-3 py-3 shadow-[0_16px_30px_-24px_rgba(16,185,129,0.36)]"
+              whileHover={liteMotion ? undefined : { y: -2, borderColor: "rgba(52,211,153,0.58)" }}
+              transition={{ type: "spring", stiffness: 220, damping: 22 }}
+            >
+              <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(140px_90px_at_90%_0%,rgba(16,185,129,0.14),transparent_72%)]" />
+              <span className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-emerald-400/70 via-emerald-300/45 to-transparent" />
+              <motion.span
+                className="pointer-events-none absolute -left-10 top-0 h-full w-8 bg-white/70 blur-[2px]"
+                animate={liteMotion ? undefined : { x: ["0%", "620%"] }}
+                transition={{ duration: 2.8, repeat: Infinity, repeatDelay: 2.1, ease: "easeInOut" }}
+              />
+              <div className="relative flex items-center gap-3">
+                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 ring-1 ring-emerald-200/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+                  <AnimatedCheckIcon className="h-6 w-6" />
+                </span>
+                <div className="min-w-0 leading-none">
+                  <p className="text-[clamp(1.45rem,2.8vw,2.2rem)] font-black tracking-[-0.03em] leading-[0.95] text-[#1E293B]">Fixed</p>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#475569]">Monthly Fee</p>
+                </div>
+              </div>
+            </motion.li>
+          </ul>
+          <div className="relative mt-3 rounded-xl border border-indigo-100/90 bg-white/80 p-2 backdrop-blur-sm">
+            <ExlyFixedFeeChart liteMotion={liteMotion} className="h-20 w-full" />
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.11em] text-[#4338CA]/90">
+              Stable model, predictable margin
+            </p>
+          </div>
+        </motion.div>
+      </motion.div>
       <motion.div
         variants={revealItem}
         className="mt-5 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-2 text-[11px] font-semibold text-[#4338CA] sm:px-4 sm:text-xs"
@@ -2491,8 +2966,22 @@ function DefaultCover({ liteMotion = false, compact = false }) {
           </div>
         ))}
       </motion.div>
-      <motion.div variants={revealItem} className="mt-10">
-        <MagneticButton>Schedule Discovery Call</MagneticButton>
+      <motion.div variants={revealItem} className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-[auto_minmax(0,1fr)] md:items-end">
+        <div className="inline-flex flex-col items-center md:items-start">
+          <MagneticButton>Schedule Discovery Call</MagneticButton>
+          <p className="mt-2 text-[11px] font-bold text-[#4B5563] md:text-left">
+            No revenue share. No long contracts. No hidden fees.
+          </p>
+        </div>
+        <div className="w-full max-w-[620px] justify-self-end overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <img
+            src="/screenshots/zero-cut-performance-banner.svg"
+            alt="Exly performance highlights showing 0% cut, 100% retained revenue, and growth metrics"
+            className="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
       </motion.div>
     </motion.div>
   );
@@ -2545,13 +3034,29 @@ function renderSectionContent(section, motionProfile = null) {
         <motion.h3 variants={revealItem} className="text-lg font-semibold text-[#111827]">
           Services we execute with you
         </motion.h3>
-        <motion.div variants={revealItem} className="grid gap-4 md:grid-cols-2">
-          {heroServiceCards.map((card) => (
-            <div key={card.title} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-              <p className="text-sm font-semibold text-[#111827]">{card.title}</p>
-              <p className="mt-1 text-sm text-[#6B7280]">{card.detail}</p>
+        <motion.div variants={revealItem} className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {growthThesisServiceBlocks.map((block) => (
+            <div key={block.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-50 text-[#4F46E5]">
+                  <block.icon className="h-4 w-4" />
+                </span>
+                <p className="text-sm font-semibold text-[#111827]">{block.title}</p>
+              </div>
+              <ul className="mt-4 space-y-2.5">
+                {block.items.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm text-[#374151]">
+                    <Check className="mt-0.5 h-4 w-4 text-[#4F46E5]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
+        </motion.div>
+        <motion.div variants={revealItem} className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#4F46E5]">Live Workspace Preview</p>
+          <LandingScreenshotGrid items={landingScreenshots} liteMotion={liteMotion} mode="three" />
         </motion.div>
       </motion.div>
     );
@@ -2873,6 +3378,21 @@ function renderSectionContent(section, motionProfile = null) {
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-xs uppercase tracking-[0.18em] text-[#4F46E5]">Commercial Terms</p>
             <p className="mt-2 text-sm font-semibold text-[#111827]">No revenue share. No percentage of ad spend. No hidden fees.</p>
+          </div>
+        </motion.div>
+        <motion.div variants={revealItem} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="relative aspect-[16/9] overflow-hidden">
+            <img
+              src={landingScreenshots[2].src}
+              alt={landingScreenshots[2].title}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div className="border-t border-slate-100 p-4">
+            <p className="text-sm font-semibold text-[#111827]">{landingScreenshots[2].title}</p>
+            <p className="mt-1 text-sm text-[#64748B]">{landingScreenshots[2].note}</p>
           </div>
         </motion.div>
         <SectionLiveCartoonPack sectionKey="core" liteMotion={liteMotion} compact={mobileView} />
