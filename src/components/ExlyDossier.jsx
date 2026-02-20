@@ -2966,14 +2966,14 @@ function DefaultCover({ liteMotion = false, compact = false }) {
           </div>
         ))}
       </motion.div>
-      <motion.div variants={revealItem} className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-[auto_minmax(0,1fr)] md:items-end">
-        <div className="inline-flex flex-col items-center md:items-start">
-          <MagneticButton>Schedule Discovery Call</MagneticButton>
+      <motion.div variants={revealItem} className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-[auto_minmax(0,1fr)] md:items-center">
+        <div className="inline-flex w-full max-w-[760px] flex-col items-center md:items-start">
+          <MagneticButton className="w-full justify-center">Schedule Discovery Call</MagneticButton>
           <p className="mt-2 text-[11px] font-bold text-[#4B5563] md:text-left">
             No revenue share. No long contracts. No hidden fees.
           </p>
         </div>
-        <div className="w-full max-w-[620px] justify-self-end overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="w-full max-w-[860px] justify-self-end overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <img
             src="/screenshots/zero-cut-performance-banner.svg"
             alt="Exly performance highlights showing 0% cut, 100% retained revenue, and growth metrics"
